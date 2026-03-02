@@ -70,7 +70,7 @@ library(limma)
 design = model.matrix(~Group)
 fit = lmFit(exp,design)
 fit = eBayes(fit)
-deg = topTable(fit,coef = 2,number = Inf)#coef = 2统计design的第二列，两组不需要改动，Inf正无穷全部列出来的意思
+deg = topTable(fit,coef = 2,number = Inf)
 
 
 library(dplyr)
@@ -120,10 +120,11 @@ g=pheatmap(n,
            show_colnames =F,
            show_rownames = T,
            fontsize_row = 7,
-           cluster_cols=F,#不聚类
+           cluster_cols=F,
            annotation_col=annotation_col,
            annotation_colors = ann_colors,
-           scale = "row", #按行标准化，只保留行内差别，不保留行间差别，会把数据范围缩放到大概-5~5之间
-           breaks = seq(-3,3,length.out = 100), #设置色带分布范围为-3~3之间，超出此范围的数字显示极限颜色，#length.out = 100有100个渐变颜色
+           scale = "row", 
+           breaks = seq(-3,3,length.out = 100), 
            color = colorRampPalette(c("#016074", "white", "#b02113"))(100))
+
 ggsave(g,file="GC deg Heat Map50.png")
